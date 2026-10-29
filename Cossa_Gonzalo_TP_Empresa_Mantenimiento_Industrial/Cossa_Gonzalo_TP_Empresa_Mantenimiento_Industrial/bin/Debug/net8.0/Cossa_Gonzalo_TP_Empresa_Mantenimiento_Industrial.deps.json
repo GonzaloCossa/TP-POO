@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial/1.0.0": {
+        "runtime": {
+          "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
