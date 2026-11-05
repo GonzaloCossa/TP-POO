@@ -104,25 +104,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             {
                 foreach (OrdenServicio o in ordenes)
                 {
-                    string tipo = o.EsPreventivo ? "PREVENTIVO" : "CORRECTIVO";
-                    string precioStr = o.PrecioBase.ToString(CultureInfo.InvariantCulture);
-                    string fechaStr = o.Fecha.ToString("dd-MM-yyyy");
-                    string horaInicioStr = o.HorarioInicio.ToString();
-                    string horasEstStr = o.HorasEstimadas.ToString(CultureInfo.InvariantCulture);
-                    string codigoEquipo = o.EquipoAsignado != null ? o.EquipoAsignado.CodigoIdentificador : "";
-
-                    // Obtenemos directamente el nivel de urgencia de la clase. 
-                    string urgenciaStr = o.NivelUrgenciaTexto;
-
-                    // Juntamos los legajos de los técnicos separados por coma.
-                    List<string> legajosList = new List<string>();
-                    foreach (Tecnico t in o.TecnicosAsignados)
-                    {
-                        legajosList.Add(t.Legajo.ToString());
-                    }
-                    string legajosStr = string.Join(",", legajosList);
-
-                    sw.WriteLine($"{tipo};{o.IdOrden};{o.Cliente};{o.Descripcion};{fechaStr};{horaInicioStr};{horasEstStr};{precioStr};{o.Estado};{codigoEquipo};{urgenciaStr};{legajosStr}");
+                    sw.WriteLine(o.GenerarLineaCsv());
                 }
             }
         }
@@ -149,7 +131,6 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
                     double horasEstimadas = Convert.ToDouble(partes[6], CultureInfo.InvariantCulture);
                     decimal precioBase = Convert.ToDecimal(partes[7], CultureInfo.InvariantCulture);
 
-                    // Eliminamos typeof usando el Enum.Parse genérico
                     EstadoOrden estado = Enum.Parse<EstadoOrden>(partes[8], true);
 
                     string codigoEquipo = partes[9];

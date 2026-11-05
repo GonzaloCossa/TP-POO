@@ -1,6 +1,7 @@
 ﻿using Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Enums;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,11 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
 {
     public class MantenimientoCorrectivo : OrdenServicio
     {
-        public Urgencia NivelUrgencia { get; set; }
+        private Urgencia nivelUrgencia;
+        public Urgencia NivelUrgencia { get => nivelUrgencia; set => nivelUrgencia = value; }
+
         public override bool EsPreventivo => false;
+
 
         public MantenimientoCorrectivo(int idOrden, string cliente, string descripcion, DateTime fecha, TimeSpan horarioInicio, double horasEstimadas, Equipo equipoAsignado, decimal precioBase, Urgencia urgencia)
             : base(idOrden, cliente, descripcion, fecha, horarioInicio, horasEstimadas, equipoAsignado, precioBase)
@@ -34,8 +38,15 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             return PrecioBase + costoEquipo + extraTecnicos + adicionalUrgencia;
         }
 
-        // Sobreescribo del padre para poder leer el csv y obtener el tipo de urgencia.
-        public override string NivelUrgenciaTexto => NivelUrgencia.ToString();
-        
+        public override string GenerarLineaCsv()
+        {
+            string precioStr = PrecioBase.ToString(CultureInfo.InvariantCulture);
+            string fechaStr = Fecha.ToString("dd-MM-yyyy");
+            string horasEstStr = HorasEstimadas.ToString(CultureInfo.InvariantCulture);
+            string codigoEquipo = EquipoAsignado != null ? EquipoAsignado.CodigoIdentificador : "";
+            string legajosStr = string.Join(",", TecnicosAsignados.Select(t => t.Legajo));
+
+            return $"CORRECTIVO;{IdOrden};{Cliente};{Descripcion};{fechaStr};{HorarioInicio};{horasEstStr};{precioStr};{Estado};{codigoEquipo};{NivelUrgencia};{legajosStr}";
+        }
     }
 }

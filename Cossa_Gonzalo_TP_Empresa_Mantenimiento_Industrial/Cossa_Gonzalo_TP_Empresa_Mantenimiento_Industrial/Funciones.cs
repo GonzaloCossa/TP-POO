@@ -104,7 +104,6 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.Write("Ingrese el precio base: ");
             decimal precioBase = Convert.ToDecimal(Console.ReadLine());
 
-            // Selección de equipo
             Console.WriteLine("\nEquipos disponibles:");
             foreach (Equipo e in empresa.Equipos)
             {
@@ -144,7 +143,6 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
                 continuar = Convert.ToChar(Console.ReadLine()!.ToLower());
             }
 
-            // Tipo de mantenimiento
             Console.Write("\n¿Es mantenimiento Preventivo (1) o Correctivo (2)?: ");
             string tipo = Console.ReadLine()!;
 
@@ -185,7 +183,6 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             CambiarEstadoOrden(empresa, "--- CANCELAR ORDEN DE SERVICIO ---", "\nIngrese el ID de la orden a cancelar: ", EstadoOrden.Cancelada, "\nLa orden ha sido cancelada.");
         }
 
-        // Método auxiliar privado para no repetir lógica al iniciar o cancelar órdenes
         private void CambiarEstadoOrden(Empresa empresa, string titulo, string mensajeInput, EstadoOrden nuevoEstado, string mensajeExito)
         {
             Console.Clear();
@@ -264,13 +261,27 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
 
                 switch (subOpt)
                 {
-                    case "1": ReporteTecnicosYOrdenes(empresa); break;
-                    case "2": ReporteEquiposYEstado(empresa); break;
-                    case "3": ReporteOrdenesPorFecha(empresa); break;
-                    case "4": ReporteOrdenesPorEstado(empresa); break;
-                    case "5": ReporteOrdenesPorTecnico(empresa); break;
-                    case "6": ReporteOrdenesPorEquipo(empresa); break;
-                    case "7": volver = true; break;
+                    case "1": 
+                        ReporteTecnicosYOrdenes(empresa); 
+                        break;
+                    case "2": 
+                        ReporteEquiposYEstado(empresa); 
+                        break;
+                    case "3": 
+                        ReporteOrdenesPorFecha(empresa); 
+                        break;
+                    case "4": 
+                        ReporteOrdenesPorEstado(empresa); 
+                        break;
+                    case "5": 
+                        ReporteOrdenesPorTecnico(empresa); 
+                        break;
+                    case "6": 
+                        ReporteOrdenesPorEquipo(empresa);
+                        break;
+                    case "7":
+                        volver = true; 
+                        break;
                     default:
                         Console.WriteLine("\n[Aviso]: Opción inválida.");
                         Console.ReadKey();
@@ -285,7 +296,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.WriteLine("--- TÉCNICOS Y SUS ÓRDENES ASIGNADAS ---\n");
             foreach (Tecnico t in empresa.Tecnicos)
             {
-                Console.WriteLine($"Técnico: {t.Nombre} (Legajo: {t.Legajo}) - Sueldo Neto: ${t.CalcularSueldoNeto()}");
+                Console.WriteLine($"Técnico: {t.Nombre} (Legajo: {t.Legajo}) - Sueldo Neto: ${t.CalcularSueldoNeto():F2}");
                 Console.WriteLine("  Órdenes asignadas:");
 
                 bool tieneOrdenes = false;
@@ -293,7 +304,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
                 {
                     if (o.TecnicosAsignados.Any(tec => tec.Legajo == t.Legajo))
                     {
-                        Console.WriteLine($"    - ID: {o.IdOrden} | Cliente: {o.Cliente} | Fecha: {o.Fecha.ToShortDateString()} | Estado: {o.Estado}");
+                        Console.WriteLine($"    - ID: {o.IdOrden} | Cliente: {o.Cliente} | Fecha: {o.Fecha.ToShortDateString()} | Estado: {o.Estado.ToString().Replace("EnCurso", "En curso")}");
                         tieneOrdenes = true;
                     }
                 }
@@ -333,7 +344,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             {
                 if (o.Fecha.Date == fechaBuscada.Date)
                 {
-                    Console.WriteLine($"[ID: {o.IdOrden}] Cliente: {o.Cliente} | Horario: {o.HorarioInicio} a {o.HorarioFin} | Estado: {o.Estado}");
+                    Console.WriteLine($"[ID: {o.IdOrden}] Cliente: {o.Cliente} | Horario: {o.HorarioInicio} a {o.HorarioFin} | Estado: {o.Estado.ToString().Replace("EnCurso", "En curso")}");
                     encontradas = true;
                 }
             }
@@ -418,7 +429,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             {
                 if (o.TecnicosAsignados.Any(t => t.Legajo == legajo))
                 {
-                    Console.WriteLine($"[ID: {o.IdOrden}] Cliente: {o.Cliente} | Fecha: {o.Fecha.ToShortDateString()} | Estado: {o.Estado}");
+                    Console.WriteLine($"[ID: {o.IdOrden}] Cliente: {o.Cliente} | Fecha: {o.Fecha.ToShortDateString()} | Estado: {o.Estado.ToString().Replace("EnCurso", "En curso")}");
                     encontradas = true;
                 }
             }
@@ -470,7 +481,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             {
                 if (o.EquipoAsignado.CodigoIdentificador.Equals(codigo, StringComparison.OrdinalIgnoreCase))
                 {
-                    Console.WriteLine($"[ID: {o.IdOrden}] Cliente: {o.Cliente} | Fecha: {o.Fecha.ToShortDateString()} | Estado: {o.Estado}");
+                    Console.WriteLine($"[ID: {o.IdOrden}] Cliente: {o.Cliente} | Fecha: {o.Fecha.ToShortDateString()} | Estado: {o.Estado.ToString().Replace("EnCurso", "En curso")}");
                     encontradas = true;
                 }
             }

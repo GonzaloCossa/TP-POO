@@ -1,6 +1,7 @@
 ﻿using Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Enums;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,17 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             decimal costoEquipo = EquipoAsignado.CostoPorHora * (decimal)HorasEstimadas;
             decimal extraTecnicos = 15000m * TecnicosAsignados.Count;
             return PrecioBase + extraTecnicos + costoEquipo;
+        }
+
+        public override string GenerarLineaCsv()
+        {
+            string precioStr = PrecioBase.ToString(CultureInfo.InvariantCulture);
+            string fechaStr = Fecha.ToString("dd-MM-yyyy");
+            string horasEstStr = HorasEstimadas.ToString(CultureInfo.InvariantCulture);
+            string codigoEquipo = EquipoAsignado != null ? EquipoAsignado.CodigoIdentificador : "";
+            string legajosStr = string.Join(",", TecnicosAsignados.Select(t => t.Legajo));
+
+            return $"PREVENTIVO;{IdOrden};{Cliente};{Descripcion};{fechaStr};{HorarioInicio};{horasEstStr};{precioStr};{Estado};{codigoEquipo};NA;{legajosStr}";
         }
     }
 }

@@ -9,6 +9,16 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
 {
     public abstract class OrdenServicio
     {
+        protected int idOrden;
+        protected string cliente;
+        protected string descripcion;
+        protected DateTime fecha;
+        protected TimeSpan horarioInicio;
+        protected double horasEstimadas;
+        protected Equipo equipoAsignado;
+        protected List<Tecnico> tecnicosAsignados;
+        protected decimal precioBase;
+
         public int IdOrden { get; set; }
         public string Cliente { get; set; }
         public string Descripcion { get; set; }
@@ -20,10 +30,8 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
         public EstadoOrden Estado { get; set; }
         public decimal PrecioBase { get; set; }
         public abstract bool EsPreventivo { get; }
-        // Añádí esta propiedad para al momento de cargar las ordenes del CSV, poder diferenciar la urgencia de cada una.
-        public virtual string NivelUrgenciaTexto => "NA";
 
-        protected OrdenServicio(int idOrden, string cliente, string descripcion, DateTime fecha, TimeSpan horarioInicio, double horasEstimadas, Equipo equipoAsignado, decimal precioBase)
+        public OrdenServicio(int idOrden, string cliente, string descripcion, DateTime fecha, TimeSpan horarioInicio, double horasEstimadas, Equipo equipoAsignado, decimal precioBase)
         {
             IdOrden = idOrden;
             Cliente = cliente;
@@ -48,5 +56,8 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
         }
 
         public abstract decimal CalcularImporte();
+
+        // Metodo abstracto para que cada hijo cree el toString que se guardará en el CSV.
+        public abstract string GenerarLineaCsv();
     }
 }

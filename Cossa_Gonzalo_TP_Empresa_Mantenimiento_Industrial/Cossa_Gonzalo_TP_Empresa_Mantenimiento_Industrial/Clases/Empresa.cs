@@ -10,22 +10,27 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
 {
     public class Empresa
     {
-        public string Nombre { get; set; }
-        public string Cuit { get; set; }
-        public List<Tecnico> Tecnicos { get; set; }
-        public List<Equipo> Equipos { get; set; }
-        public List<OrdenServicio> Ordenes { get; set; }
+        private string nombre;
+        private string cuit;
+        private List<Tecnico> tecnicos;
+        private List<Equipo> equipos;
+        private List<OrdenServicio> ordenes;
+
+        public string Nombre { get => nombre; set => nombre = value; }
+        public string Cuit { get => cuit; set => cuit = value; }
+        public List<Tecnico> Tecnicos { get => tecnicos; set => tecnicos = value; }
+        public List<Equipo> Equipos { get => equipos; set => equipos = value; }
+        public List<OrdenServicio> Ordenes { get => ordenes; set => ordenes = value; }
 
         public Empresa(string nombre, string cuit)
         {
-            Nombre = nombre;
-            Cuit = cuit;
-            Tecnicos = new List<Tecnico>();
-            Equipos = new List<Equipo>();
-            Ordenes = new List<OrdenServicio>();
+            this.Nombre = nombre;
+            this.Cuit = cuit;
+            this.Tecnicos = new List<Tecnico>();
+            this.Equipos = new List<Equipo>();
+            this.Ordenes = new List<OrdenServicio>();
         }
 
-        /* Registrar Técnico validando duplicados por Legajo o DNI */
         public void RegistrarTecnico(Tecnico tecnico)
         {
             foreach (Tecnico t in Tecnicos)
@@ -38,7 +43,6 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             Tecnicos.Add(tecnico);
         }
 
-        /* Registrar Equipo validando duplicados por Código Identificador */
         public void RegistrarEquipo(Equipo equipo)
         {
             foreach (Equipo e in Equipos)
@@ -49,7 +53,6 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             Equipos.Add(equipo);
         }
 
-        /* Programar Orden de Servicio aplicando todas las reglas de negocio y excepciones */
         public void ProgramarOrden(OrdenServicio nuevaOrden, Equipo equipo, List<Tecnico> tecnicosSeleccionados)
         {
             // 1. Validar que el equipo se encuentre operativo
@@ -100,12 +103,11 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             Ordenes.Add(nuevaOrden);
         }
 
-        /* Eliminar Técnico o Equipo validando que no posean órdenes activas o pendientes */
         public void EliminarTecnicoOEquipo(int? legajoTecnico, string codigoEquipo)
         {
             if (legajoTecnico.HasValue)
             {
-                // Validar si el técnico participa en alguna orden que no esté Finalizada ni Cancelada
+                // Validamos si el técnico participa en alguna orden con estado Programada o En Curso
                 foreach (OrdenServicio orden in Ordenes)
                 {
                     if (orden.Estado == EstadoOrden.Programada || orden.Estado == EstadoOrden.EnCurso)
