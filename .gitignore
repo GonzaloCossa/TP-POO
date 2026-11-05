@@ -1,0 +1,19 @@
+# Carpetas de compilación y temporales de .NET
+
+[Oo]bj/
+
+[Rr]elease/
+x64/
+x86/
+[Ll]ogs/
+
+# Archivos de usuario de Visual Studio
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*/.vs/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
