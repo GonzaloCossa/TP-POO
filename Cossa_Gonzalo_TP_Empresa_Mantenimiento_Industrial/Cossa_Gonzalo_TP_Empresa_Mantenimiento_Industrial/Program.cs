@@ -11,41 +11,40 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             empresa.Tecnicos = GestorArchivos.CargarTecnicos();
             empresa.Equipos = GestorArchivos.CargarEquipos();
             empresa.Ordenes = GestorArchivos.CargarOrdenes(empresa.Equipos, empresa.Tecnicos);
-            Funciones funciones = new Funciones();
             bool salir = false;
 
             while (!salir)
             {
                 try
                 {
-                    funciones.mostrarMenu(empresa);
+                    Funciones.mostrarMenu(empresa);
                     string opcion = Console.ReadLine()!;
 
                     switch (opcion)
                     {
                         case "1":
-                            funciones.registrarTecnico(empresa);
+                            Funciones.registrarTecnico(empresa);
                             break;
                         case "2":
-                            funciones.registrarEquipo(empresa);
+                            Funciones.registrarEquipo(empresa);
                             break;
                         case "3":
-                            funciones.programarOrden(empresa);
+                            Funciones.programarOrden(empresa);
                             break;
                         case "4":
-                            funciones.iniciarOrden(empresa);
+                            Funciones.iniciarOrden(empresa);
                             break;
                         case "5":
-                            funciones.cancelarOrden(empresa);
+                            Funciones.cancelarOrden(empresa);
                             break;
                         case "6":
-                            funciones.cierreParcial(empresa);
+                            Funciones.cierreParcial(empresa);
                             break;
                         case "7":
-                            funciones.consultasYReportes(empresa);
+                            Funciones.consultasYReportes(empresa);
                             break;
                         case "8":
-                            funciones.eliminarTecnicoOEquipo(empresa);
+                            Funciones.eliminarTecnicoOEquipo(empresa);
                             break;
                         case "9":
                             GestorArchivos.GuardarTecnicos(empresa.Tecnicos);

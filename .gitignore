@@ -1,5 +1,5 @@
 # Carpetas de compilación y temporales de .NET
-
+[Bb]in/
 [Oo]bj/
 
 [Rr]elease/
@@ -7,12 +7,25 @@ x64/
 x86/
 [Ll]ogs/
 
+*.rar
+ConsoleApp1/
+Practica_2/
+Practica_7/
+
+# Resultados de pruebas
+[Tt]est[Rr]esults/
+*.trx
+
 # Archivos de usuario de Visual Studio
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
 */.vs/
+
+# Configuraciones de otros editores (VS Code / Rider)
+.vscode/
+.idea/
 
 # Archivos del sistema operativo
 .DS_Store

@@ -9,27 +9,17 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
 {
     public abstract class OrdenServicio
     {
-        protected int idOrden;
-        protected string cliente;
-        protected string descripcion;
-        protected DateTime fecha;
-        protected TimeSpan horarioInicio;
-        protected double horasEstimadas;
-        protected Equipo equipoAsignado;
-        protected List<Tecnico> tecnicosAsignados;
-        protected decimal precioBase;
-
-        public int IdOrden { get; set; }
-        public string Cliente { get; set; }
-        public string Descripcion { get; set; }
-        public DateTime Fecha { get; set; }
-        public TimeSpan HorarioInicio { get; set; }
-        public double HorasEstimadas { get; set; }
-        public Equipo EquipoAsignado { get; set; }
-        public List<Tecnico> TecnicosAsignados { get; set; }
+        public int IdOrden { get; protected set; }
+        public string Cliente { get; protected set; }
+        public string Descripcion { get; protected set; }
+        public DateTime Fecha { get; protected set; }
+        public TimeSpan HorarioInicio { get; protected set; }
+        public double HorasEstimadas { get; protected set; }
+        public Equipo EquipoAsignado { get; protected set; }
+        public List<Tecnico> TecnicosAsignados { get; protected set; }
         public EstadoOrden Estado { get; set; }
-        public decimal PrecioBase { get; set; }
-        public abstract bool EsPreventivo { get; }
+        public decimal PrecioBase { get; protected set; }
+        public TimeSpan HorarioFin => HorarioInicio.Add(TimeSpan.FromHours(HorasEstimadas));
 
         public OrdenServicio(int idOrden, string cliente, string descripcion, DateTime fecha, TimeSpan horarioInicio, double horasEstimadas, Equipo equipoAsignado, decimal precioBase)
         {
@@ -44,8 +34,6 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             Estado = EstadoOrden.Programada;
             PrecioBase = precioBase;
         }
-
-        public TimeSpan HorarioFin => HorarioInicio.Add(TimeSpan.FromHours(HorasEstimadas));
 
         public bool SeSuperponeCon(DateTime otraFecha, TimeSpan otroInicio, double otrasHoras)
         {

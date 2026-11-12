@@ -9,18 +9,12 @@ using System.Threading.Tasks;
 namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
 {
     public class Empresa
-    {
-        private string nombre;
-        private string cuit;
-        private List<Tecnico> tecnicos;
-        private List<Equipo> equipos;
-        private List<OrdenServicio> ordenes;
-
-        public string Nombre { get => nombre; set => nombre = value; }
-        public string Cuit { get => cuit; set => cuit = value; }
-        public List<Tecnico> Tecnicos { get => tecnicos; set => tecnicos = value; }
-        public List<Equipo> Equipos { get => equipos; set => equipos = value; }
-        public List<OrdenServicio> Ordenes { get => ordenes; set => ordenes = value; }
+    {   
+        public string Nombre { get; set; }
+        public string Cuit { get; set; }
+        public List<Tecnico> Tecnicos { get; set; }
+        public List<Equipo> Equipos { get; set; }
+        public List<OrdenServicio> Ordenes { get; set; }
 
         public Empresa(string nombre, string cuit)
         {
@@ -55,13 +49,13 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
 
         public void ProgramarOrden(OrdenServicio nuevaOrden, Equipo equipo, List<Tecnico> tecnicosSeleccionados)
         {
-            // 1. Validar que el equipo se encuentre operativo
+            // 1. Valido que el equipo se encuentre operativo
             if (!equipo.Operativo)
             {
                 throw new EquipoNoOperativoException($"El equipo {equipo.CodigoIdentificador} no se encuentra operativo y no puede ser asignado.");
             }
 
-            // 2. Validar que el equipo no esté ocupado en el mismo horario
+            // 2. Valido que el equipo no esté ocupado en el mismo horario
             foreach (OrdenServicio orden in Ordenes)
             {
                 if (orden.Estado != EstadoOrden.Cancelada && orden.EquipoAsignado.CodigoIdentificador == equipo.CodigoIdentificador)
@@ -73,7 +67,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
                 }
             }
 
-            // 3. Validar que los técnicos no estén ocupados en el mismo horario
+            // 3. Valido que los técnicos no estén ocupados en el mismo horario
             foreach (Tecnico tecnico in tecnicosSeleccionados)
             {
                 foreach (OrdenServicio orden in Ordenes)

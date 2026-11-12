@@ -10,9 +10,21 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
 {
     public static class GestorArchivos
     {
-        private static string rutaTecnicos = "tecnicos.csv";
-        private static string rutaEquipos = "equipos.csv";
-        private static string rutaOrdenes = "ordenes.csv";
+        private static readonly string carpetaRaiz = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
+
+        private static readonly string carpetaArchivos = Path.Combine(carpetaRaiz, "Archivos");
+
+        private static string rutaTecnicos => Path.Combine(carpetaArchivos, "tecnicos.csv");
+        private static string rutaEquipos => Path.Combine(carpetaArchivos, "equipos.csv");
+        private static string rutaOrdenes => Path.Combine(carpetaArchivos, "ordenes.csv");
+
+        static GestorArchivos()
+        {
+            if (!Directory.Exists(carpetaArchivos))
+            {
+                Directory.CreateDirectory(carpetaArchivos);
+            }
+        }
 
         // ==========================================
         // PERSISTENCIA DE TÉCNICOS

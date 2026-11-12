@@ -10,11 +10,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
 {
     public class MantenimientoCorrectivo : OrdenServicio
     {
-        private Urgencia nivelUrgencia;
-        public Urgencia NivelUrgencia { get => nivelUrgencia; set => nivelUrgencia = value; }
-
-        public override bool EsPreventivo => false;
-
+        public Urgencia NivelUrgencia { get; private set; }
 
         public MantenimientoCorrectivo(int idOrden, string cliente, string descripcion, DateTime fecha, TimeSpan horarioInicio, double horasEstimadas, Equipo equipoAsignado, decimal precioBase, Urgencia urgencia)
             : base(idOrden, cliente, descripcion, fecha, horarioInicio, horasEstimadas, equipoAsignado, precioBase)

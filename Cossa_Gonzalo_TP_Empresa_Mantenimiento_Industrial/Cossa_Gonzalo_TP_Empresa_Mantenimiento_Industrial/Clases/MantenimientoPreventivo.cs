@@ -10,8 +10,6 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
 {
     public class MantenimientoPreventivo : OrdenServicio
     {
-        public override bool EsPreventivo => true;
-
         public MantenimientoPreventivo(int idOrden, string cliente, string descripcion, DateTime fecha, TimeSpan horarioInicio, double horasEstimadas, Equipo equipoAsignado, decimal precioBase)
             : base(idOrden, cliente, descripcion, fecha, horarioInicio, horasEstimadas, equipoAsignado, precioBase)
         {
@@ -32,6 +30,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             string codigoEquipo = EquipoAsignado != null ? EquipoAsignado.CodigoIdentificador : "";
             string legajosStr = string.Join(",", TecnicosAsignados.Select(t => t.Legajo));
 
+            // Como un Mantenimiento Preventivo no tiene un nivel de urgencia, para poder guardalo en el csv, le agrego en el string que su urgencia es 'NA' (no asignada) para poder escribir en el archivo sin problema
             return $"PREVENTIVO;{IdOrden};{Cliente};{Descripcion};{fechaStr};{HorarioInicio};{horasEstStr};{precioStr};{Estado};{codigoEquipo};NA;{legajosStr}";
         }
     }

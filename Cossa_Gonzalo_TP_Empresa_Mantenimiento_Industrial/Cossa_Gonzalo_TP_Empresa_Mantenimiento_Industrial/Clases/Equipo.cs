@@ -8,13 +8,9 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
 {
     public class Equipo
     {
-        private string codigoIdentificador;
-        private decimal costoPorHora;
-        private bool operativo;
-
-        public string CodigoIdentificador { get => codigoIdentificador; set => codigoIdentificador = value; }
-        public decimal CostoPorHora { get => costoPorHora; set => costoPorHora = value; }
-        public bool Operativo { get => operativo; set => operativo = value; }
+        public string CodigoIdentificador { get; set; }
+        public decimal CostoPorHora { get; set; }
+        public bool Operativo { get; set; }
 
         public Equipo(string codigoIdentificador, decimal costoPorHora, bool operativo)
         {

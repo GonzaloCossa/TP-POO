@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
 {
-    public class Funciones
+    public static class Funciones
     {
-        public void mostrarMenu(Empresa empresa)
+        public static void mostrarMenu(Empresa empresa)
         {
             Console.Clear();
             Console.WriteLine("========================================================================");
@@ -29,7 +29,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.Write("\nSeleccione una opción (1-9): ");
         }
 
-        public void registrarTecnico(Empresa empresa)
+        public static void registrarTecnico(Empresa empresa)
         {
             Console.Clear();
             Console.WriteLine("--- REGISTRAR TÉCNICO ---");
@@ -56,7 +56,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
-        public void registrarEquipo(Empresa empresa)
+        public static void registrarEquipo(Empresa empresa)
         {
             Console.Clear();
             Console.WriteLine("--- REGISTRAR EQUIPO ---");
@@ -78,7 +78,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
-        public void programarOrden(Empresa empresa)
+        public static void programarOrden(Empresa empresa)
         {
             Console.Clear();
             Console.WriteLine("--- PROGRAMAR ORDEN DE SERVICIO ---");
@@ -173,17 +173,17 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
-        public void iniciarOrden(Empresa empresa)
+        public static void iniciarOrden(Empresa empresa)
         {
             CambiarEstadoOrden(empresa, "--- INICIAR ORDEN DE SERVICIO ---", "\nIngrese el ID de la orden a iniciar: ", EstadoOrden.EnCurso, "\nLa orden ha pasado a estado En Curso.");
         }
 
-        public void cancelarOrden(Empresa empresa)
+        public static void cancelarOrden(Empresa empresa)
         {
             CambiarEstadoOrden(empresa, "--- CANCELAR ORDEN DE SERVICIO ---", "\nIngrese el ID de la orden a cancelar: ", EstadoOrden.Cancelada, "\nLa orden ha sido cancelada.");
         }
 
-        private void CambiarEstadoOrden(Empresa empresa, string titulo, string mensajeInput, EstadoOrden nuevoEstado, string mensajeExito)
+        private static void CambiarEstadoOrden(Empresa empresa, string titulo, string mensajeInput, EstadoOrden nuevoEstado, string mensajeExito)
         {
             Console.Clear();
             Console.WriteLine(titulo);
@@ -205,7 +205,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
-        public void cierreParcial(Empresa empresa)
+        public static void cierreParcial(Empresa empresa)
         {
             Console.Clear();
             Console.WriteLine("--- CIERRE PARCIAL DE LA JORNADA ---");
@@ -225,8 +225,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
                         o.Estado = EstadoOrden.Finalizada;
                         recaudacionTotal += o.CalcularImporte();
 
-                        if (o.EsPreventivo) countPreventivo++;
-                        else countCorrectivo++;
+                        if (o.GenerarLineaCsv().StartsWith("PREVENTIVO;"))
+                            countPreventivo++;
+                        else
+                            countCorrectivo++;
                     }
                 }
             }
@@ -239,7 +241,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
-        public void consultasYReportes(Empresa empresa)
+        public static void consultasYReportes(Empresa empresa)
         {
             bool volver = false;
             while (!volver)
@@ -290,7 +292,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             }
         }
 
-        private void ReporteTecnicosYOrdenes(Empresa empresa)
+        private static void ReporteTecnicosYOrdenes(Empresa empresa)
         {
             Console.Clear();
             Console.WriteLine("--- TÉCNICOS Y SUS ÓRDENES ASIGNADAS ---\n");
@@ -318,7 +320,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
-        private void ReporteEquiposYEstado(Empresa empresa)
+        private static void ReporteEquiposYEstado(Empresa empresa)
         {
             Console.Clear();
             Console.WriteLine("--- LISTADO DE EQUIPOS Y SU ESTADO ---\n");
@@ -331,7 +333,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
-        private void ReporteOrdenesPorFecha(Empresa empresa)
+        private static void ReporteOrdenesPorFecha(Empresa empresa)
         {
             Console.Clear();
             Console.WriteLine("--- ÓRDENES POR FECHA ---\n");
@@ -356,7 +358,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
-        private void ReporteOrdenesPorEstado(Empresa empresa)
+        private static void ReporteOrdenesPorEstado(Empresa empresa)
         {
             Console.Clear();
             Console.WriteLine("--- ÓRDENES POR ESTADO ---\n");
@@ -390,7 +392,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
-        private void ReporteOrdenesPorTecnico(Empresa empresa)
+        private static void ReporteOrdenesPorTecnico(Empresa empresa)
         {
             Console.Clear();
             Console.WriteLine("--- ÓRDENES ASOCIADAS A UN TÉCNICO ---\n");
@@ -441,7 +443,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
-        private void ReporteOrdenesPorEquipo(Empresa empresa)
+        private static void ReporteOrdenesPorEquipo(Empresa empresa)
         {
             Console.Clear();
             Console.WriteLine("--- ÓRDENES ASOCIADAS A UN EQUIPO ---\n");
@@ -493,7 +495,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
-        public void eliminarTecnicoOEquipo(Empresa empresa)
+        public static void eliminarTecnicoOEquipo(Empresa empresa)
         {
             Console.Clear();
             Console.WriteLine("--- ELIMINAR RECURSO ---");
