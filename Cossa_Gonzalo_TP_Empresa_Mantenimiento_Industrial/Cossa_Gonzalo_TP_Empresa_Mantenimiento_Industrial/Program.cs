@@ -41,12 +41,15 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
                             Funciones.cierreParcial(empresa);
                             break;
                         case "7":
-                            Funciones.consultasYReportes(empresa);
+                            Funciones.cierreDelDia(empresa);
                             break;
                         case "8":
-                            Funciones.eliminarTecnicoOEquipo(empresa);
+                            Funciones.consultasYReportes(empresa);
                             break;
                         case "9":
+                            Funciones.eliminarTecnicoOEquipo(empresa);
+                            break;
+                        case "10":
                             GestorArchivos.GuardarTecnicos(empresa.Tecnicos);
                             GestorArchivos.GuardarEquipos(empresa.Equipos);
                             GestorArchivos.GuardarOrdenes(empresa.Ordenes);

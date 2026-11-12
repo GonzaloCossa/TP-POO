@@ -23,10 +23,11 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.WriteLine("4. Iniciar una orden");
             Console.WriteLine("5. Cancelar una orden");
             Console.WriteLine("6. Realizar cierre parcial de la jornada");
-            Console.WriteLine("7. Consultar órdenes y reportes");
-            Console.WriteLine("8. Eliminar técnico o equipo");
-            Console.WriteLine("9. Salir");
-            Console.Write("\nSeleccione una opción (1-9): ");
+            Console.WriteLine("7. Realizar cierre total de la jornada");
+            Console.WriteLine("8. Consultar órdenes y reportes");
+            Console.WriteLine("9. Eliminar técnico o equipo");
+            Console.WriteLine("10. Salir");
+            Console.Write("\nSeleccione una opción (1-10): ");
         }
 
         public static void registrarTecnico(Empresa empresa)
@@ -218,7 +219,9 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
 
             foreach (OrdenServicio o in empresa.Ordenes)
             {
-                if (o.Fecha.Date == fechaConsulta.Date && o.HorarioFin <= DateTime.Now.TimeOfDay)
+                DateTime fechaHoraFin = o.Fecha.Date.Add(o.HorarioFin);
+
+                if (o.Fecha.Date == fechaConsulta.Date && fechaHoraFin <= DateTime.Now)
                 {
                     if (o.Estado != EstadoOrden.Cancelada)
                     {
@@ -241,6 +244,62 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
+        public static void cierreDelDia(Empresa empresa)
+        {
+            Console.Clear();
+            Console.WriteLine("========================================================================");
+            Console.WriteLine("                      --- CIERRE TOTAL DEL DÍA ---                      ");
+            Console.WriteLine("========================================================================");
+            Console.Write("\nIngrese la fecha del cierre total (DD-MM-YYYY): ");
+            DateTime fechaConsulta = DateTime.ParseExact(
+                Console.ReadLine()!,
+                "dd-MM-yyyy",
+                CultureInfo.InvariantCulture
+            );
+
+            decimal recaudacionTotal = 0;
+            int contadorProcesadas = 0;
+
+            Console.WriteLine($"\nDetalle de órdenes procesadas para la fecha {fechaConsulta.ToShortDateString()}:\n");
+            Console.WriteLine($"{"ID",-6} | {"Cliente",-25} | {"Tipo",-15} | {"Importe",12}");
+            Console.WriteLine("------------------------------------------------------------------------------");
+
+            foreach (OrdenServicio o in empresa.Ordenes)
+            {
+                DateTime fechaHoraFin = o.Fecha.Date.Add(o.HorarioFin);
+
+                // Evaluamos que sea de la fecha, que ya haya finalizado su horario y que NO esté cancelada.
+                if (o.Fecha.Date == fechaConsulta.Date && fechaHoraFin <= DateTime.Now && o.Estado != EstadoOrden.Cancelada)
+                {
+                    // Forzamos el estado a Finalizada por si había alguna pendiente
+                    o.Estado = EstadoOrden.Finalizada;
+
+                    decimal importeOrden = o.CalcularImporte();
+                    recaudacionTotal += importeOrden;
+                    contadorProcesadas++;
+
+                    string tipoMantenimiento = o.GenerarLineaCsv().StartsWith("PREVENTIVO;") ? "Preventivo" : "Correctivo";
+
+                    Console.WriteLine($"{o.IdOrden,-6} | {o.Cliente,-25} | {tipoMantenimiento,-15} | ${importeOrden,11:F2}");
+                }
+            }
+
+            Console.WriteLine("------------------------------------------------------------------------------");
+
+            if (contadorProcesadas == 0)
+            {
+                Console.WriteLine("No se registraron órdenes válidas para procesar en esta fecha.");
+            }
+            else
+            {
+                Console.WriteLine($"\nTotal de órdenes procesadas: {contadorProcesadas}");
+                Console.WriteLine($"RECAUDACIÓN TOTAL DEL DÍA: ${recaudacionTotal:F2}");
+            }
+
+            Console.Write("\nPulse cualquier tecla para continuar...");
+            Console.ReadKey();
+        }
+
         public static void consultasYReportes(Empresa empresa)
         {
             bool volver = false;
@@ -256,8 +315,9 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
                 Console.WriteLine("4. Órdenes por estado");
                 Console.WriteLine("5. Órdenes asociadas a un técnico");
                 Console.WriteLine("6. Órdenes asociadas a un equipo");
-                Console.WriteLine("7. Volver al menú principal");
-                Console.Write("\nSeleccione una opción de reporte (1-7): ");
+                Console.WriteLine("7. Reporte Económico y de Sueldos");
+                Console.WriteLine("8. Volver al menú principal");
+                Console.Write("\nSeleccione una opción de reporte (1-8): ");
 
                 string subOpt = Console.ReadLine()!;
 
@@ -282,6 +342,9 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
                         ReporteOrdenesPorEquipo(empresa);
                         break;
                     case "7":
+                        ReporteEcoSueldos(empresa);
+                        break;
+                    case "8":
                         volver = true; 
                         break;
                     default:
@@ -310,12 +373,15 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
                         tieneOrdenes = true;
                     }
                 }
+
                 if (!tieneOrdenes)
                 {
                     Console.WriteLine("    (Sin órdenes asignadas)");
                 }
-                Console.WriteLine("--------------------------------------------------");
+
+                Console.WriteLine("------------------------------------------------------------");
             }
+
             Console.Write("\nPulse cualquier tecla para continuar...");
             Console.ReadKey();
         }
@@ -491,6 +557,56 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             {
                 Console.WriteLine("El equipo no posee órdenes asociadas.");
             }
+            Console.Write("\nPulse cualquier tecla para continuar...");
+            Console.ReadKey();
+        }
+
+        private static void ReporteEcoSueldos(Empresa empresa)
+        {
+            Console.Clear();
+            Console.WriteLine("==================================================================================");
+            Console.WriteLine("                  --- TÉCNICOS, ÓRDENES Y RESUMEN ECONÓMICO ---                 ");
+            Console.WriteLine("==================================================================================");
+
+            decimal totalSueldosNomina = 0;
+            decimal totalFacturableOrdenes = 0;
+
+            foreach (Tecnico t in empresa.Tecnicos)
+            {
+                decimal sueldoNetoTecnico = t.CalcularSueldoNeto();
+                totalSueldosNomina += sueldoNetoTecnico;
+
+                Console.WriteLine($"\nTécnico: {t.Nombre} (Legajo: {t.Legajo}) - Sueldo Neto: ${sueldoNetoTecnico:F2}");
+                Console.WriteLine("  Órdenes asignadas:");
+
+                bool tieneOrdenes = false;
+                foreach (OrdenServicio o in empresa.Ordenes)
+                {
+                    //Uso .Any para comparar justamente cualquier Tecnico dentro de la lista de la orden que tenga el legajo
+                    if (o.TecnicosAsignados.Any(tec => tec.Legajo == t.Legajo))
+                    {
+                        decimal importeOrden = o.CalcularImporte();
+                        if (o.Estado == EstadoOrden.Finalizada)
+                        {
+                            totalFacturableOrdenes += importeOrden;
+                        }
+
+                        Console.WriteLine($"    - ID: {o.IdOrden} | Cliente: {o.Cliente} | Fecha: {o.Fecha.ToShortDateString()} | Estado: {o.Estado.ToString().Replace("EnCurso", "En curso")} | Importe: ${importeOrden:F2}");
+                        tieneOrdenes = true;
+                    }
+                }
+                if (!tieneOrdenes)
+                {
+                    Console.WriteLine("    (Sin órdenes asignadas)");
+                }
+                Console.WriteLine("----------------------------------------------------------------------------------");
+            }
+
+            Console.WriteLine("\n==================================================================================");
+            Console.WriteLine($" TOTAL A DESEMBOLSAR EN SUELDOS (NÓMINA): ${totalSueldosNomina:F2}");
+            Console.WriteLine($" TOTAL FACTURABLE DE ÓRDENES PROCESADAS:  ${totalFacturableOrdenes:F2}");
+            Console.WriteLine("==================================================================================");
+
             Console.Write("\nPulse cualquier tecla para continuar...");
             Console.ReadKey();
         }
