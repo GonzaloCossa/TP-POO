@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{74ED03E8-CCFC-489C-9BB6-DF713B55641B}|Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.csproj|c:\\users\\gonza\\desktop\\programaci\u00F3n con objetos unaj\\cossa_gonzalo_tp_empresa_mantenimiento_industrial\\cossa_gonzalo_tp_empresa_mantenimiento_industrial\\funciones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74ED03E8-CCFC-489C-9BB6-DF713B55641B}|Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.csproj|solutionrelative:cossa_gonzalo_tp_empresa_mantenimiento_industrial\\funciones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{74ED03E8-CCFC-489C-9BB6-DF713B55641B}|Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.csproj|c:\\users\\gonza\\desktop\\programaci\u00F3n con objetos unaj\\cossa_gonzalo_tp_empresa_mantenimiento_industrial\\cossa_gonzalo_tp_empresa_mantenimiento_industrial\\archivos\\ordenes.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{74ED03E8-CCFC-489C-9BB6-DF713B55641B}|Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.csproj|solutionrelative:cossa_gonzalo_tp_empresa_mantenimiento_industrial\\archivos\\ordenes.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{74ED03E8-CCFC-489C-9BB6-DF713B55641B}|Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.csproj|c:\\users\\gonza\\desktop\\programaci\u00F3n con objetos unaj\\cossa_gonzalo_tp_empresa_mantenimiento_industrial\\cossa_gonzalo_tp_empresa_mantenimiento_industrial\\archivos\\equipos.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{74ED03E8-CCFC-489C-9BB6-DF713B55641B}|Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.csproj|solutionrelative:cossa_gonzalo_tp_empresa_mantenimiento_industrial\\archivos\\equipos.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{74ED03E8-CCFC-489C-9BB6-DF713B55641B}|Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.csproj|c:\\users\\gonza\\desktop\\programaci\u00F3n con objetos unaj\\cossa_gonzalo_tp_empresa_mantenimiento_industrial\\cossa_gonzalo_tp_empresa_mantenimiento_industrial\\excepciones\\gestorexcepciones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74ED03E8-CCFC-489C-9BB6-DF713B55641B}|Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.csproj|solutionrelative:cossa_gonzalo_tp_empresa_mantenimiento_industrial\\excepciones\\gestorexcepciones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{74ED03E8-CCFC-489C-9BB6-DF713B55641B}|Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.csproj|c:\\users\\gonza\\desktop\\programaci\u00F3n con objetos unaj\\cossa_gonzalo_tp_empresa_mantenimiento_industrial\\cossa_gonzalo_tp_empresa_mantenimiento_industrial\\archivos\\tecnicos.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{74ED03E8-CCFC-489C-9BB6-DF713B55641B}|Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.csproj|solutionrelative:cossa_gonzalo_tp_empresa_mantenimiento_industrial\\archivos\\tecnicos.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{74ED03E8-CCFC-489C-9BB6-DF713B55641B}|Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.csproj|c:\\users\\gonza\\desktop\\programaci\u00F3n con objetos unaj\\cossa_gonzalo_tp_empresa_mantenimiento_industrial\\cossa_gonzalo_tp_empresa_mantenimiento_industrial\\excepciones\\excepcionpersonalizada.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74ED03E8-CCFC-489C-9BB6-DF713B55641B}|Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.csproj|solutionrelative:cossa_gonzalo_tp_empresa_mantenimiento_industrial\\excepciones\\excepcionpersonalizada.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74ED03E8-CCFC-489C-9BB6-DF713B55641B}|Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.csproj|c:\\users\\gonza\\desktop\\programaci\u00F3n con objetos unaj\\cossa_gonzalo_tp_empresa_mantenimiento_industrial\\cossa_gonzalo_tp_empresa_mantenimiento_industrial\\clases\\empresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74ED03E8-CCFC-489C-9BB6-DF713B55641B}|Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.csproj|solutionrelative:cossa_gonzalo_tp_empresa_mantenimiento_industrial\\clases\\empresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,41 +46,67 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "equipos.csv",
-              "DocumentMoniker": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Archivos\\equipos.csv",
-              "RelativeDocumentMoniker": "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Archivos\\equipos.csv",
-              "ToolTip": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Archivos\\equipos.csv*",
-              "RelativeToolTip": "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Archivos\\equipos.csv*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
-              "WhenOpened": "2026-11-12T21:08:16.864Z",
+              "DocumentIndex": 2,
+              "Title": "GestorExcepciones.cs",
+              "DocumentMoniker": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Excepciones\\GestorExcepciones.cs",
+              "RelativeDocumentMoniker": "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Excepciones\\GestorExcepciones.cs",
+              "ToolTip": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Excepciones\\GestorExcepciones.cs",
+              "RelativeToolTip": "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Excepciones\\GestorExcepciones.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAqwA4AAACSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-12T22:50:17.286Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "tecnicos.csv",
-              "DocumentMoniker": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Archivos\\tecnicos.csv",
-              "RelativeDocumentMoniker": "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Archivos\\tecnicos.csv",
-              "ToolTip": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Archivos\\tecnicos.csv*",
-              "RelativeToolTip": "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Archivos\\tecnicos.csv*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
-              "WhenOpened": "2026-11-12T20:19:33.486Z",
+              "DocumentIndex": 3,
+              "Title": "ExcepcionPersonalizada.cs",
+              "DocumentMoniker": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Excepciones\\ExcepcionPersonalizada.cs",
+              "RelativeDocumentMoniker": "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Excepciones\\ExcepcionPersonalizada.cs",
+              "ToolTip": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Excepciones\\ExcepcionPersonalizada.cs",
+              "RelativeToolTip": "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Excepciones\\ExcepcionPersonalizada.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-12T22:50:15.168Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Funciones.cs",
+              "DocumentMoniker": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Funciones.cs",
+              "RelativeDocumentMoniker": "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Funciones.cs",
+              "ToolTip": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Funciones.cs*",
+              "RelativeToolTip": "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Funciones.cs*",
+              "ViewState": "AgIAADsAAAAAAAAAAAA9wFgAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-12T22:44:25.557Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Empresa.cs",
+              "DocumentMoniker": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Clases\\Empresa.cs",
+              "RelativeDocumentMoniker": "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Clases\\Empresa.cs",
+              "ToolTip": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Clases\\Empresa.cs",
+              "RelativeToolTip": "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Clases\\Empresa.cs",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAYwGEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-12T22:43:55.721Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "ordenes.csv",
               "DocumentMoniker": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Archivos\\ordenes.csv",
               "RelativeDocumentMoniker": "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Archivos\\ordenes.csv",
-              "ToolTip": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Archivos\\ordenes.csv*",
-              "RelativeToolTip": "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Archivos\\ordenes.csv*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAACYAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Gonza\\Desktop\\Programaci\u00F3n con Objetos UNAJ\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Archivos\\ordenes.csv",
+              "RelativeToolTip": "Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial\\Archivos\\ordenes.csv",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
-              "WhenOpened": "2026-11-12T20:17:50.729Z",
+              "WhenOpened": "2026-11-12T22:43:48.973Z",
               "EditorCaption": ""
             }
           ]

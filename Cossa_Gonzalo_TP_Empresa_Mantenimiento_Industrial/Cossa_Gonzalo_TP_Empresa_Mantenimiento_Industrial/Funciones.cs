@@ -84,10 +84,9 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.Clear();
             Console.WriteLine("--- PROGRAMAR ORDEN DE SERVICIO ---");
 
-            Console.Write("\nIngrese el ID de la orden: ");
-            int id = Convert.ToInt32(Console.ReadLine());
+            int id = empresa.Ordenes.Any() ? empresa.Ordenes.Max(o => o.IdOrden) + 1 : 1;
 
-            Console.Write("Ingrese el cliente: ");
+            Console.Write("\nIngrese el cliente: ");
             string cliente = Console.ReadLine()!;
 
             Console.Write("Ingrese la descripción del trabajo: ");
@@ -105,12 +104,12 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.Write("Ingrese el precio base: ");
             decimal precioBase = Convert.ToDecimal(Console.ReadLine());
 
-            Console.WriteLine("\nEquipos disponibles:");
+            Console.WriteLine("\nEquipos disponibles:\n");
             foreach (Equipo e in empresa.Equipos)
             {
                 Console.WriteLine($"Código: {e.CodigoIdentificador} | Operativo: {(e.Operativo ? "Operativo" : "Fuera de Servicio")}");
             }
-            Console.Write("Ingrese el código del equipo a asignar: ");
+            Console.Write("\nIngrese el código del equipo a asignar: ");
             string codEquipo = Console.ReadLine()!;
             Equipo equipoAsignado = empresa.Equipos.Find(e => e.CodigoIdentificador == codEquipo)!;
 
@@ -126,12 +125,13 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             char continuar = 's';
             while (continuar == 's')
             {
-                Console.WriteLine("\nTécnicos disponibles:");
+                Console.WriteLine("\nTécnicos disponibles:\n");
                 foreach (Tecnico t in empresa.Tecnicos)
                 {
                     Console.WriteLine($"Legajo: {t.Legajo} | Nombre: {t.Nombre}");
                 }
-                Console.Write("Ingrese el legajo del técnico a agregar: ");
+
+                Console.Write("\nIngrese el legajo del técnico a agregar: ");
                 int leg = Convert.ToInt32(Console.ReadLine());
                 Tecnico tec = empresa.Tecnicos.Find(t => t.Legajo == leg)!;
 
@@ -140,12 +140,23 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
                     tecnicosSeleccionados.Add(tec);
                 }
 
-                Console.Write("¿Desea agregar otro técnico? (s/n): ");
+                Console.Write("\n¿Desea agregar otro técnico? (s/n): ");
                 continuar = Convert.ToChar(Console.ReadLine()!.ToLower());
             }
 
-            Console.Write("\n¿Es mantenimiento Preventivo (1) o Correctivo (2)?: ");
-            string tipo = Console.ReadLine()!;
+            string tipo;
+            while (true)
+            {
+                Console.Write("\n¿Es mantenimiento Preventivo (1) o Correctivo (2)?: ");
+                tipo = Console.ReadLine()!.Trim();
+
+                if (tipo == "1" || tipo == "2")
+                {
+                    break;
+                }
+
+                Console.WriteLine("\n[ERROR] Opción inválida. Debe ingresar 1 para Preventivo o 2 para Correctivo. Intente nuevamente.");
+            }
 
             OrdenServicio nuevaOrden;
             if (tipo == "1")
@@ -154,7 +165,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             }
             else
             {
-                Console.Write("Ingrese la urgencia (Baja / Media / Alta): ");
+                Console.Write("\nIngrese la urgencia (Baja / Media / Alta): ");
                 string urgStr = Console.ReadLine()!.Trim().ToLower();
 
                 Urgencia urgencia = urgStr switch
@@ -251,11 +262,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.WriteLine("                      --- CIERRE TOTAL DEL DÍA ---                      ");
             Console.WriteLine("========================================================================");
             Console.Write("\nIngrese la fecha del cierre total (DD-MM-YYYY): ");
-            DateTime fechaConsulta = DateTime.ParseExact(
-                Console.ReadLine()!,
-                "dd-MM-yyyy",
-                CultureInfo.InvariantCulture
-            );
+            DateTime fechaConsulta = DateTime.ParseExact(Console.ReadLine()!, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
             decimal recaudacionTotal = 0;
             int contadorProcesadas = 0;
@@ -315,7 +322,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
                 Console.WriteLine("4. Órdenes por estado");
                 Console.WriteLine("5. Órdenes asociadas a un técnico");
                 Console.WriteLine("6. Órdenes asociadas a un equipo");
-                Console.WriteLine("7. Reporte Económico y de Sueldos");
+                Console.WriteLine("7. Reporte económico y de sueldos");
                 Console.WriteLine("8. Volver al menú principal");
                 Console.Write("\nSeleccione una opción de reporte (1-8): ");
 
@@ -362,7 +369,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             foreach (Tecnico t in empresa.Tecnicos)
             {
                 Console.WriteLine($"Técnico: {t.Nombre} (Legajo: {t.Legajo}) - Sueldo Neto: ${t.CalcularSueldoNeto():F2}");
-                Console.WriteLine("  Órdenes asignadas:");
+                Console.WriteLine("\n  Órdenes asignadas:\n");
 
                 bool tieneOrdenes = false;
                 foreach (OrdenServicio o in empresa.Ordenes)
@@ -379,7 +386,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
                     Console.WriteLine("    (Sin órdenes asignadas)");
                 }
 
-                Console.WriteLine("------------------------------------------------------------");
+                Console.WriteLine("\n--------------------------------------------------------------------------------");
             }
 
             Console.Write("\nPulse cualquier tecla para continuar...");
@@ -564,9 +571,9 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
         private static void ReporteEcoSueldos(Empresa empresa)
         {
             Console.Clear();
-            Console.WriteLine("==================================================================================");
-            Console.WriteLine("                  --- TÉCNICOS, ÓRDENES Y RESUMEN ECONÓMICO ---                 ");
-            Console.WriteLine("==================================================================================");
+            Console.WriteLine("======================================================================================================");
+            Console.WriteLine("                            --- TÉCNICOS, ÓRDENES Y RESUMEN ECONÓMICO ---                             ");
+            Console.WriteLine("======================================================================================================");
 
             decimal totalSueldosNomina = 0;
             decimal totalFacturableOrdenes = 0;
@@ -586,10 +593,6 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
                     if (o.TecnicosAsignados.Any(tec => tec.Legajo == t.Legajo))
                     {
                         decimal importeOrden = o.CalcularImporte();
-                        if (o.Estado == EstadoOrden.Finalizada)
-                        {
-                            totalFacturableOrdenes += importeOrden;
-                        }
 
                         Console.WriteLine($"    - ID: {o.IdOrden} | Cliente: {o.Cliente} | Fecha: {o.Fecha.ToShortDateString()} | Estado: {o.Estado.ToString().Replace("EnCurso", "En curso")} | Importe: ${importeOrden:F2}");
                         tieneOrdenes = true;
@@ -599,13 +602,21 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
                 {
                     Console.WriteLine("    (Sin órdenes asignadas)");
                 }
-                Console.WriteLine("----------------------------------------------------------------------------------");
+                Console.WriteLine("-----------------------------------------------------------------------------------------------------");
             }
 
-            Console.WriteLine("\n==================================================================================");
+            foreach (OrdenServicio o in empresa.Ordenes)
+            {
+                if (o.Estado == EstadoOrden.Finalizada)
+                {
+                    totalFacturableOrdenes += o.CalcularImporte();
+                }
+            }
+
+            Console.WriteLine("\n======================================================================================================");
             Console.WriteLine($" TOTAL A DESEMBOLSAR EN SUELDOS (NÓMINA): ${totalSueldosNomina:F2}");
             Console.WriteLine($" TOTAL FACTURABLE DE ÓRDENES PROCESADAS:  ${totalFacturableOrdenes:F2}");
-            Console.WriteLine("==================================================================================");
+            Console.WriteLine("======================================================================================================");
 
             Console.Write("\nPulse cualquier tecla para continuar...");
             Console.ReadKey();
