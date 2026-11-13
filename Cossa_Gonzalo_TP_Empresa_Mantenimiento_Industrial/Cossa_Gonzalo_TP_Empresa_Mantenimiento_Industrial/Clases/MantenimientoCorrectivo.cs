@@ -18,6 +18,13 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             NivelUrgencia = urgencia;
         }
 
+        /// <summary>
+        /// Calcula el importe total facturable para el mantenimiento correctivo sobreescribiendo el metodo del padre.
+        /// </summary>
+        /// <returns>
+        /// Un valor decimal que resulta de sumar el precio base, el costo operativo del equipo, 
+        /// el adicional por cantidad de técnicos y un recargo variable según el nivel de urgencia.
+        /// </returns>
         public override decimal CalcularImporte()
         {
             decimal costoEquipo = EquipoAsignado.CostoPorHora * (decimal)HorasEstimadas;
@@ -34,6 +41,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             return PrecioBase + costoEquipo + extraTecnicos + adicionalUrgencia;
         }
 
+        /// <summary>
+        /// Genera una cadena de texto en formato CSV que representa el estado y los datos de la orden correctiva.
+        /// </summary>
+        /// <returns> Un string separado por puntos y comas para luego ser guardado en los archivos. </returns>
         public override string GenerarLineaCsv()
         {
             string precioStr = PrecioBase.ToString(CultureInfo.InvariantCulture);

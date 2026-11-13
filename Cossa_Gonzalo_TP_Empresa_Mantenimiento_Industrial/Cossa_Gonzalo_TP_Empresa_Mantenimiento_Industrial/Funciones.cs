@@ -11,6 +11,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
 {
     public static class Funciones
     {
+        /// <summary>
+        /// Muestra el menú principal de opciones del programa.
+        /// </summary>
+        /// <param name="empresa">Recibe una empresa por parametro para mostrar en su nombre y cuit.</param>
         public static void mostrarMenu(Empresa empresa)
         {
             Console.Clear();
@@ -30,6 +34,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.Write("\nSeleccione una opción (1-10): ");
         }
 
+        /// <summary>
+        /// Solicita por consola los datos necesarios y registra un nuevo técnico en el sistema.
+        /// </summary>
+        /// <param name="empresa">Recibe por parametro la empresa donde se registrará el tecnico.</param>
         public static void registrarTecnico(Empresa empresa)
         {
             Console.Clear();
@@ -57,6 +65,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Solicita por consola los parámetros y da de alta un nuevo equipo.
+        /// </summary>
+        /// <param name="empresa">Recibe por parametro la empresa donde se registrará el equipo.</param>
         public static void registrarEquipo(Empresa empresa)
         {
             Console.Clear();
@@ -79,6 +91,12 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Se encarga de pedirle al usuario la información para 
+        /// la programación de una nueva orden de servicio (preventiva o correctiva),
+        /// calculando automáticamente su ID y validando la selección de tecnicos y equipo.
+        /// </summary>
+        /// <param name="empresa">Recibe la empresa a la que se le asignará la orden creada.</param>
         public static void programarOrden(Empresa empresa)
         {
             Console.Clear();
@@ -185,38 +203,129 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Cambia el estado de una orden a En Curso llamado a la funcion CambiarEstadoOrden
+        /// y pasando los parametros requeridos, en este caso para iniciar la orden.
+        /// </summary>
+        /// <param name="empresa">Recibe la empresa en cuestion para buscar la orden solicitada.</param>
         public static void iniciarOrden(Empresa empresa)
         {
             CambiarEstadoOrden(empresa, "--- INICIAR ORDEN DE SERVICIO ---", "\nIngrese el ID de la orden a iniciar: ", EstadoOrden.EnCurso, "\nLa orden ha pasado a estado En Curso.");
         }
 
+        /// <summary>
+        /// Cambia el estado de una orden a Cancelada llamado a la funcion CambiarEstadoOrden
+        /// y pasando los parametros requeridos, en este caso para cancelar la orden.
+        /// </summary>
+        /// <param name="empresa">Recibe la empresa en cuestion para buscar la orden solicitada.</param>
         public static void cancelarOrden(Empresa empresa)
         {
             CambiarEstadoOrden(empresa, "--- CANCELAR ORDEN DE SERVICIO ---", "\nIngrese el ID de la orden a cancelar: ", EstadoOrden.Cancelada, "\nLa orden ha sido cancelada.");
         }
 
+        /// <summary>
+        /// Su función basicamente es cambiar el estado de una orden por un nuevo estado
+        /// dependiendo si es para Iniciar o Cancelar una orden muestra un listado diferente
+        /// y ,mensajes de error para el usuario en caso de ser necesario.
+        /// </summary>
+        /// <param name="empresa">Empresa de la cual comparar las ordenes</param>
+        /// <param name="titulo">Titulo a ser mostrado en el listado</param>
+        /// <param name="mensajeInput">Mensaje que se le va a mostrar al usurio para pedir ingreso</param>
+        /// <param name="nuevoEstado">Estado pasado por parametro para diferenciar si es para Iniciar o Cancelar</param>
+        /// <param name="mensajeExito">Mensaje en caso de exito para el usuario</param>
         private static void CambiarEstadoOrden(Empresa empresa, string titulo, string mensajeInput, EstadoOrden nuevoEstado, string mensajeExito)
         {
             Console.Clear();
             Console.WriteLine(titulo);
+
+            if (empresa.Ordenes.Count == 0)
+            {
+                Console.WriteLine("\nNo hay órdenes registradas en el sistema.");
+                Console.Write("\nPulse cualquier tecla para volver...");
+                Console.ReadKey();
+                return;
+            }
+
+            Console.WriteLine("\nListado de órdenes disponibles:\n");
+            bool hayOrdenesValidas = false;
+
+            foreach (OrdenServicio o in empresa.Ordenes)
+            {
+                if (nuevoEstado == EstadoOrden.EnCurso && o.Estado == EstadoOrden.Programada)
+                {
+                    string estado = o.Estado.ToString().Replace("EnCurso", "En curso");
+                    Console.WriteLine($"[ID: {o.IdOrden}] Cliente: {o.Cliente} | Fecha: {o.Fecha.ToShortDateString()} | Estado: {estado}");
+                    hayOrdenesValidas = true;
+                }
+                else if (nuevoEstado == EstadoOrden.Cancelada && (o.Estado == EstadoOrden.Programada || o.Estado == EstadoOrden.EnCurso))
+                {
+                    string estado = o.Estado.ToString().Replace("EnCurso", "En curso");
+                    Console.WriteLine($"[ID: {o.IdOrden}] Cliente: {o.Cliente} | Fecha: {o.Fecha.ToShortDateString()} | Estado: {estado}");
+                    hayOrdenesValidas = true;
+                }
+            }
+
+            if (!hayOrdenesValidas)
+            {
+                Console.WriteLine("--------------------------------------------------------------------------------");
+                Console.WriteLine("\n[Aviso]: No hay órdenes disponibles para realizar esta acción.");
+                Console.Write("\nPulse cualquier tecla para volver...");
+                Console.ReadKey();
+                return;
+            }
+
+            Console.WriteLine("--------------------------------------------------------------------------------");
+
             Console.Write(mensajeInput);
             int id = Convert.ToInt32(Console.ReadLine());
 
             OrdenServicio orden = empresa.Ordenes.Find(o => o.IdOrden == id)!;
             if (orden != null)
             {
+                if (nuevoEstado == EstadoOrden.EnCurso)
+                {
+                    if (orden.Estado != EstadoOrden.Programada)
+                    {
+                        Console.WriteLine($"\n[Error]: No se puede iniciar la orden porque su estado actual es '{orden.Estado}'. Solo se pueden iniciar órdenes en estado 'Programada'.");
+                        Console.Write("\nPulse cualquier tecla para continuar...");
+                        Console.ReadKey();
+                        return;
+                    }
+                }
+                else if (nuevoEstado == EstadoOrden.Cancelada)
+                {
+                    if (orden.Estado == EstadoOrden.Finalizada)
+                    {
+                        Console.WriteLine("\n[Error]: No se puede cancelar una orden que ya se encuentra Finalizada.");
+                        Console.Write("\nPulse cualquier tecla para continuar...");
+                        Console.ReadKey();
+                        return;
+                    }
+                    if (orden.Estado == EstadoOrden.Cancelada)
+                    {
+                        Console.WriteLine("\n[Aviso]: Esta orden ya estaba cancelada previamente.");
+                        Console.Write("\nPulse cualquier tecla para continuar...");
+                        Console.ReadKey();
+                        return;
+                    }
+                }
+
                 orden.Estado = nuevoEstado;
                 Console.WriteLine(mensajeExito);
             }
             else
             {
-                Console.WriteLine("\n[Error]: No se encontró la orden.");
+                Console.WriteLine("\n[Error]: No se encontró una orden con el ID ingresado.");
             }
 
             Console.Write("\nPulse cualquier tecla para continuar...");
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Realiza el cierre parcial provisorio de una fecha consultada, mostrando un resumen estadístico.
+        /// </summary>
+        /// <param name="empresa">Empresa a la cual realizar el cierre.</param>
         public static void cierreParcial(Empresa empresa)
         {
             Console.Clear();
@@ -255,6 +364,11 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Ejecuta el cierre total definitivo de la jornada para una fecha específica, 
+        /// emitiendo un reporte detallado de las ordenes.
+        /// </summary>
+        /// <param name="empresa">Empresa a la cual realizar el cierre.</param>
         public static void cierreDelDia(Empresa empresa)
         {
             Console.Clear();
@@ -307,6 +421,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Despliega el submenú de consultas y reportes operativos y financieros del sistema.
+        /// </summary>
+        /// <param name="empresa">Empresa a la cual se le realizan las consultas y reportes.</param>
         public static void consultasYReportes(Empresa empresa)
         {
             bool volver = false;
@@ -362,6 +480,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             }
         }
 
+        /// <summary>
+        /// Muestra el listado de todos los técnicos registrados junto con las órdenes asignadas a cada uno.
+        /// <param name="empresa">Empresa a la cual se le realizan las consultas y reportes.</param>
+        /// </summary>
         private static void ReporteTecnicosYOrdenes(Empresa empresa)
         {
             Console.Clear();
@@ -393,6 +515,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Muestra el inventario completo de equipos y su estado de operatividad actual.
+        /// <param name="empresa">Empresa a la cual se le realizan las consultas y reportes.</param>
+        /// </summary>
         private static void ReporteEquiposYEstado(Empresa empresa)
         {
             Console.Clear();
@@ -406,6 +532,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Filtra y muestra por pantalla las órdenes programadas para una fecha específica ingresada por el usuario.
+        /// <param name="empresa">Empresa a la cual se le realizan las consultas y reportes.</param>
+        /// </summary>
         private static void ReporteOrdenesPorFecha(Empresa empresa)
         {
             Console.Clear();
@@ -431,6 +561,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Filtra y muestra por pantalla las órdenes que coincidan con un estado determinado.
+        /// <param name="empresa">Empresa a la cual se le realizan las consultas y reportes.</param>
+        /// </summary>
         private static void ReporteOrdenesPorEstado(Empresa empresa)
         {
             Console.Clear();
@@ -465,6 +599,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Muestra las órdenes asociadas a un legajo de técnico específico ingresado por teclado.
+        /// <param name="empresa">Empresa a la cual se le realizan las consultas y reportes.</param>
+        /// </summary>
         private static void ReporteOrdenesPorTecnico(Empresa empresa)
         {
             Console.Clear();
@@ -516,6 +654,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Muestra las órdenes asociadas a un código de equipo específico ingresado por teclado.
+        /// <param name="empresa">Empresa a la cual se le realizan las consultas y reportes.</param>
+        /// </summary>
         private static void ReporteOrdenesPorEquipo(Empresa empresa)
         {
             Console.Clear();
@@ -568,6 +710,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Emite un reporte económico detallando la nómina de sueldos de los técnicos y el total facturable global de las órdenes finalizadas.
+        /// <param name="empresa">Empresa a la cual se le realizan las consultas y reportes.</param>
+        /// </summary>
         private static void ReporteEcoSueldos(Empresa empresa)
         {
             Console.Clear();
@@ -622,6 +768,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Gestiona la interfaz por consola para eliminar un técnico o un equipo del sistema de forma segura.
+        /// <param name="empresa">Empresa a la cual se le eliminará ya sea un tecnico o un equipo.</param>
+        /// </summary>
         public static void eliminarTecnicoOEquipo(Empresa empresa)
         {
             Console.Clear();

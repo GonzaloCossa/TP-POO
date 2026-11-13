@@ -1,8 +1,8 @@
 PREVENTIVO;1;Metalúrgica del Sur;Mantenimiento preventivo general de CNC;03-11-2026;08:00:00;4;85000.00;Finalizada;EQ-CNC-01;NA;101,102
 CORRECTIVO;2;Autopartes Quilmes;Reparación de emergencia por fallo eléctrico;05-11-2026;13:30:00;3;120000.00;Finalizada;EQ-TORNO-02;Alta;103
 CORRECTIVO;3;Siderurgia Berazategui;Sustitución de actuador neumático en brazo robotizado;10-11-2026;10:15:00;5;150000.00;Finalizada;EQ-ROBOT-04;Media;104,105
-PREVENTIVO;4;Envases Plásticos del Plata;Inspección de válvulas en compresor principal;12-11-2026;14:00:00;3;75000.00;Programada;EQ-COMP-05;NA;102
-CORRECTIVO;5;Metalúrgica del Sur;Falla en sistema de refrigeración principal de CNC;06-11-2026;11:00:00;4;110000.00;Finalizada;EQ-CNC-01;Alta;101,106
+PREVENTIVO;4;Envases Plásticos del Plata;Inspección de válvulas en compresor principal;12-11-2026;14:00:00;3;75000.00;EnCurso;EQ-COMP-05;NA;102
+CORRECTIVO;5;Metalúrgica del Sur;Falla en sistema de refrigeración principal de CNC;06-11-2026;11:00:00;4;110000.00;Cancelada;EQ-CNC-01;Alta;101,106
 PREVENTIVO;6;Autopartes Quilmes;Mantenimiento periódico preventivo de torno CNC;09-11-2026;08:30:00;3;70000.00;Finalizada;EQ-TORNO-02;NA;103,107
 PREVENTIVO;7;Siderurgia Berazategui;Calibración de sensores ópticos en brazo robótico;13-11-2026;09:30:00;4;88000.00;Programada;EQ-ROBOT-04;NA;104,107
-CORRECTIVO;8;Envases Plásticos del Plata;Reparación de fuga en línea de alta presión;14-11-2026;12:00:00;3;105000.00;Finalizada;EQ-COMP-05;Baja;102,106
+CORRECTIVO;8;Envases Plásticos del Plata;Reparación de fuga en línea de alta presión;14-11-2026;12:00:00;3;105000.00;Programada;EQ-COMP-05;Baja;102,106

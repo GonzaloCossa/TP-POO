@@ -23,6 +23,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             FechaNacimiento = fechaNacimiento;
         }
 
+        /// <summary>
+        /// Se encarga de calcular cual es el sueldo real que tiene cada Tecnico que por el enunciado se le reduce un 17%
+        /// </summary>
+        /// <returns>Retorna en decimal el salario real.</returns>
         public decimal CalcularSueldoNeto()
         {
             return SueldoBasico * 0.83m;

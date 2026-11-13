@@ -25,6 +25,11 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             this.Ordenes = new List<OrdenServicio>();
         }
 
+        /// <summary>
+        /// Registra un nuevo técnico en la empresa después de validar que no existan duplicados de legajo o DNI.
+        /// </summary>
+        /// <param name="tecnico">Tecnico a registrar.</param>
+        /// <exception cref="ExcepcionPersonalizada">Se lanza si ya existe un técnico con el mismo legajo o DNI.</exception>
         public void RegistrarTecnico(Tecnico tecnico)
         {
             foreach (Tecnico t in Tecnicos)
@@ -37,6 +42,11 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             Tecnicos.Add(tecnico);
         }
 
+        /// <summary>
+        /// Registra un nuevo equipo en la lista de la empresa validando que no se duplique su código identificador.
+        /// </summary>
+        /// <param name="equipo">Equipo a registrar.</param>
+        /// <exception cref="ExcepcionPersonalizada">Se lanza si ya existe un equipo con el mismo código identificador.</exception>
         public void RegistrarEquipo(Equipo equipo)
         {
             foreach (Equipo e in Equipos)
@@ -47,6 +57,15 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             Equipos.Add(equipo);
         }
 
+        /// <summary>
+        /// Programa una nueva orden de servicio validando la que el equipo esté operativo y que no haya conflictos horarios asignados.
+        /// </summary>
+        /// <param name="nuevaOrden">Orden que se desea programar.</param>
+        /// <param name="equipo">Equipo asignado al mantenimiento.</param>
+        /// <param name="tecnicosSeleccionados">Lista de técnicos asignados a la orden.</param>
+        /// <exception cref="EquipoNoOperativoException">Se lanza si el equipo no se encuentra operativo.</exception>
+        /// <exception cref="EquipoOcupadoException">Se lanza si el equipo está ocupado en el mismo horario por otra orden diferente.</exception>
+        /// <exception cref="TecnicoOcupadoException">Se lanza si alguno de los técnicos tiene ocupado el mismo horario por otra orden diferente.</exception>
         public void ProgramarOrden(OrdenServicio nuevaOrden, Equipo equipo, List<Tecnico> tecnicosSeleccionados)
         {
             // 1. Valido que el equipo se encuentre operativo
@@ -58,7 +77,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             // 2. Valido que el equipo no esté ocupado en el mismo horario
             foreach (OrdenServicio orden in Ordenes)
             {
-                if (orden.Estado != EstadoOrden.Cancelada && orden.EquipoAsignado.CodigoIdentificador == equipo.CodigoIdentificador)
+                if ((orden.Estado != EstadoOrden.Cancelada || orden.Estado != EstadoOrden.Finalizada) && orden.EquipoAsignado.CodigoIdentificador == equipo.CodigoIdentificador)
                 {
                     if (orden.SeSuperponeCon(nuevaOrden.Fecha, nuevaOrden.HorarioInicio, nuevaOrden.HorasEstimadas))
                     {
@@ -72,7 +91,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             {
                 foreach (OrdenServicio orden in Ordenes)
                 {
-                    if (orden.Estado != EstadoOrden.Cancelada)
+                    if (orden.Estado != EstadoOrden.Cancelada || orden.Estado != EstadoOrden.Finalizada)
                     {
                         foreach (Tecnico tAsignado in orden.TecnicosAsignados)
                         {
@@ -97,6 +116,14 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             Ordenes.Add(nuevaOrden);
         }
 
+        /// <summary>
+        /// Elimina un técnico o un equipo de la empresa dependiendo lo recibido por parametro,
+        /// verificando previamente que no posean órdenes activas o en curso.
+        /// </summary>
+        /// <param name="legajoTecnico">Legajo opcional del técnico a eliminar.</param>
+        /// <param name="codigoEquipo">Código opcional del equipo a eliminar.</param>
+        /// <exception cref="EliminacionAsignadaException">Se lanza si el recurso está asignado a órdenes activas.</exception>
+        /// <exception cref="ExcepcionPersonalizada">Se lanza si no se encuentra el recurso especificado.</exception>
         public void EliminarTecnicoOEquipo(int? legajoTecnico, string codigoEquipo)
         {
             if (legajoTecnico.HasValue)

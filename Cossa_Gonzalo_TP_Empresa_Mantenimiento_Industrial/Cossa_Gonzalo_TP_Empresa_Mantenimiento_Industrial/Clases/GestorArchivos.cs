@@ -10,14 +10,21 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
 {
     public static class GestorArchivos
     {
+        /// <summary>
+        /// En esta seccion de atributos defino cuales son las dirreciones 
+        /// donde se van a guardar los respectivos archivos para la persistencia de datos.
+        /// </summary>
         private static readonly string carpetaRaiz = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
-
         private static readonly string carpetaArchivos = Path.Combine(carpetaRaiz, "Archivos");
 
         private static string rutaTecnicos => Path.Combine(carpetaArchivos, "tecnicos.csv");
         private static string rutaEquipos => Path.Combine(carpetaArchivos, "equipos.csv");
         private static string rutaOrdenes => Path.Combine(carpetaArchivos, "ordenes.csv");
 
+        /// <summary>
+        /// En el cosntructor estatico simplemente se encarga de crear una carpeta
+        /// en la raiz del proyecto para evitar inconvenientes la primera vez que se ejecuta el programa.
+        /// </summary>
         static GestorArchivos()
         {
             if (!Directory.Exists(carpetaArchivos))
@@ -29,6 +36,11 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
         // ==========================================
         // PERSISTENCIA DE TÉCNICOS
         // ==========================================
+
+        /// <summary>
+        /// Usando un formato especifico separado por comas, guarda la información de una List<Tecnico>
+        /// </summary>
+        /// <param name="tecnicos">Lista de tecnicos de la empresa a guardar</param>
         public static void GuardarTecnicos(List<Tecnico> tecnicos)
         {
             using (StreamWriter sw = new StreamWriter(rutaTecnicos))
@@ -43,6 +55,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             }
         }
 
+        /// <summary>
+        /// Se encarga de obtener los datos de los tecnicos guardados en el archivo
+        /// </summary>
+        /// <returns>Retorna la lista de tecnicos la cual será cargada en la empresa al ejecutarse el programa</returns>
         public static List<Tecnico> CargarTecnicos()
         {
             List<Tecnico> tecnicos = new List<Tecnico>();
@@ -53,6 +69,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
                 string linea;
                 while ((linea = sr.ReadLine()!) != null)
                 {
+                    // En caso de haber una un salto de linea o linea vacia, la obvia.
                     if (string.IsNullOrWhiteSpace(linea)) continue;
                     string[] partes = linea.Split(';');
 
@@ -71,6 +88,11 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
         // ==========================================
         // PERSISTENCIA DE EQUIPOS
         // ==========================================
+
+        /// <summary>
+        /// Usando un formato especifico separado por comas, guarda la información de una List<Equipo>
+        /// </summary>
+        /// <param name="equipos">Lista de equipos de la empresa a guardar</param>
         public static void GuardarEquipos(List<Equipo> equipos)
         {
             using (StreamWriter sw = new StreamWriter(rutaEquipos))
@@ -84,6 +106,10 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             }
         }
 
+        /// <summary>
+        /// Se encarga de obtener los datos de los equipos guardados en el archivo
+        /// </summary>
+        /// <returns>Retorna la lista de equpos la cual será cargada en la empresa al ejecutarse el programa</returns>
         public static List<Equipo> CargarEquipos()
         {
             List<Equipo> equipos = new List<Equipo>();
@@ -110,6 +136,11 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
         // ==========================================
         // PERSISTENCIA DE ÓRDENES DE SERVICIO
         // ==========================================
+
+        /// <summary>
+        /// Guarda la lista de ordenes recibida por parametro, dependiendo que clase sea guardará su formato en el csv.
+        /// </summary>
+        /// <param name="ordenes">Lista de las ordenes de la empresa a guardar</param>
         public static void GuardarOrdenes(List<OrdenServicio> ordenes)
         {
             using (StreamWriter sw = new StreamWriter(rutaOrdenes))
@@ -121,6 +152,12 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             }
         }
 
+        /// <summary>
+        /// Se encarga de obtener los datos de las ordenes guardadas en el archivo
+        /// </summary>
+        /// <param name="equiposDisponibles"></param>
+        /// <param name="tecnicosDisponibles"></param>
+        /// <returns>Retorna la lista correspondiente a las ordenes de la empresa</returns>
         public static List<OrdenServicio> CargarOrdenes(List<Equipo> equiposDisponibles, List<Tecnico> tecnicosDisponibles)
         {
             List<OrdenServicio> ordenes = new List<OrdenServicio>();
@@ -131,6 +168,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
                 string linea;
                 while ((linea = sr.ReadLine()!) != null)
                 {
+                    // Nuevamente si la linea es un salto o está vacia, la salta.
                     if (string.IsNullOrWhiteSpace(linea)) continue;
                     string[] partes = linea.Split(';');
 
@@ -168,12 +206,13 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
                     // Asignamos el estado recuperado
                     orden.Estado = estado;
 
-                    // Reconstruir la lista de técnicos asignados
+                    // Reconstruimos la lista de técnicos asignados a la orden
                     if (!string.IsNullOrEmpty(legajosStr))
                     {
                         string[] legajosArray = legajosStr.Split(',');
                         foreach (string legStr in legajosArray)
                         {
+                            // Se intenta parsear el string obtenido en el csv en un nuevo int legajo, variable que luego se usa par buscar en los tecnicos que existen.
                             if (int.TryParse(legStr, out int legajo))
                             {
                                 Tecnico tec = tecnicosDisponibles.Find(t => t.Legajo == legajo)!;

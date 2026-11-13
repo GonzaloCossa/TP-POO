@@ -35,6 +35,13 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             PrecioBase = precioBase;
         }
 
+        /// <summary>
+        /// Compara si la orden actual se superpone en fecha y horario con otro intervalo temporal indicado.
+        /// </summary>
+        /// <param name="otraFecha">Fecha de la otra orden a evaluar.</param>
+        /// <param name="otroInicio">Horario de inicio del otro servicio.</param>
+        /// <param name="otrasHoras">Duración estimada en horas del otro servicio.</param>
+        /// <returns> Retorna True si se superponen las horas de la comparación, sino, retorna False.</returns>
         public bool SeSuperponeCon(DateTime otraFecha, TimeSpan otroInicio, double otrasHoras)
         {
             if (Fecha.Date != otraFecha.Date) return false;
@@ -43,6 +50,7 @@ namespace Cossa_Gonzalo_TP_Empresa_Mantenimiento_Industrial.Clases
             return HorarioInicio < otroFin && otroInicio < HorarioFin;
         }
 
+        // Metodo abstracto el cual cada hijo modificará para responder como calcula el importe de la orden.
         public abstract decimal CalcularImporte();
 
         // Metodo abstracto para que cada hijo cree el toString que se guardará en el CSV.
